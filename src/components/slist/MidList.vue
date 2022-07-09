@@ -1,0 +1,223 @@
+<template>
+  <div class="top-back">
+    <!-- 利用图片再使用定位作为背景，通过filter进行高斯模糊 -->
+    <img class="top-img" :src="plyLst.coverImgUrl" />
+    <!-- 组件中间部分的布局，包含了中间图片以及歌单名字 -->
+    <div class="mid">
+      <div class="mid-leftb">
+        <img :src="plyLst.coverImgUrl" />
+      </div>
+      <div class="mid-rightb">{{ plyLst.listName }}</div>
+    </div>
+    <!-- 组件中间下部分的按钮：评论数、分享数以及下载多选等 -->
+    <div class="bottom">
+      <div>
+        <span class="iconfont icon-comment"></span
+        ><span>{{ plyLst.commentCount }}</span>
+      </div>
+      <div>
+        <span class="iconfont icon-icon-test1"></span
+        ><span>{{ plyLst.shareCount }}</span>
+      </div>
+      <div><span class="iconfont icon-icon-test2"></span><span>下载</span></div>
+      <div><span class="iconfont icon-complete"></span><span>多选</span></div>
+    </div>
+
+    <!-- 具体的歌单部分 -->
+    <div class="song-list">
+      <!-- 歌单中的头部，包含播放全部以及收藏等 -->
+      <div class="list-top">
+        <div class="list-licon">
+          <div class="list-licon-icon"><van-icon name="play-circle-o" /></div>
+          <div class="list-licon-play">
+            <span class="play"
+              >播放全部<span class="word"
+                >(共{{ plyLst.songs.length }}首)</span
+              ></span
+            >
+          </div>
+        </div>
+
+        <span class="list-ricon"
+          ><van-icon name="plus" />收藏({{
+            Math.floor(plyLst.subscribedCount / 10000) + '万'
+          }})</span
+        >
+      </div>
+      <!-- 通过v-for对每首歌进行循环 -->
+      <div class="list-bottom">
+        <SongList
+          v-for="(song, index) in plyLst.songs"
+          :key="song"
+          :oneSong="song"
+          :index="index"
+        ></SongList>
+        <!-- <div v-for="song in plyLst.songs" :key="song">{{ item }}</div> -->
+      </div>
+      <div class="list-sub"></div>
+    </div>
+  </div>
+</template>
+<script setup>
+// 由于vue3是composition api开发，所以使用路由$route不能像vue2那样this了
+import { onMounted, reactive } from '@vue/runtime-core'
+import { useRoute } from 'vue-router'
+import axios from '@/utils/axios'
+// import SongList from '@/components/slist/SongList.vue'
+
+const route = useRoute()
+// 通过route动态路由匹配获取传入的id参数
+const listId = route.params.id
+const plyLst = reactive({
+  listName: '',
+  commentCount: 0,
+  shareCount: 0,
+  playCount: 0,
+  coverImgUrl: '',
+  subscribedCount: 0,
+  songs: []
+})
+// 通过动态路由传入的歌单id参数，获取歌单的详情
+const getList = async function () {
+  // console.log('/playlist/detail?id=' + route.params.id)
+  const res = await axios.get('/playlist/detail?id=' + listId)
+  plyLst.listName = res.playlist.name
+  plyLst.commentCount = res.playlist.commentCount
+  plyLst.shareCount = res.playlist.shareCount
+  plyLst.playCount = res.playlist.playCount
+  plyLst.coverImgUrl = res.playlist.coverImgUrl
+  plyLst.subscribedCount = res.playlist.subscribedCount
+  // console.log(res)
+}
+// 通过歌单id获取歌单中的全部歌曲
+const getSong = async function () {
+  const res = await axios.get('/playlist/track/all?id=' + listId)
+  // console.log(res)
+  plyLst.songs = res.songs
+  // console.log(plyLst.songs, res.songs)
+}
+onMounted(() => {
+  getList()
+  getSong()
+})
+</script>
+<style scoped>
+.top-back {
+  position: relative;
+  height: 1.875rem;
+  /* background-image: url(); */
+}
+.top-img {
+  position: absolute;
+  top: -3rem;
+  width: 100%;
+  z-index: -99;
+  filter: blur(1.5rem);
+  /* height: 20px; */
+}
+.mid {
+  margin-top: 1.875rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgb(237, 237, 237);
+}
+.mid-leftb {
+  display: flex;
+  justify-content: center;
+  width: 50%;
+  height: 8.125rem;
+}
+.mid-leftb img {
+  height: 100%;
+}
+.mid-rightb {
+  width: 50%;
+}
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.2rem;
+  /* height: ; */
+  /* font-size: 20px; */
+  color: rgb(237, 237, 237);
+}
+.bottom {
+  font-size: 0.5rem;
+}
+.iconfont {
+  font-size: 1.8rem;
+}
+.bottom div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.song-list {
+  margin-top: 1.2rem;
+  border-radius: 1rem 1rem 0 0;
+  background-color: rgb(255, 255, 255, 0.3);
+  /* background-attachment: fixed; */
+}
+.list-top {
+  position: relative;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  /* background-color: pink; */
+}
+
+.list-licon {
+  position: absolute;
+  /* left: 0.8rem; */
+  width: 70%;
+  font-size: 1.2rem;
+}
+.list-licon-icon {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0.3rem;
+  height: 2.5rem;
+  width: 2rem;
+  font-size: 1rem;
+}
+.list-licon-play {
+  position: absolute;
+  height: 2.5rem;
+  width: 70%;
+  left: 2.8rem;
+  font-size: 1rem;
+}
+.list-licon-play .play {
+  font-size: 1rem;
+  /* margin-left: 0.8rem; */
+}
+.list-licon-play .word {
+  color: rgb(150, 150, 150);
+  font-size: 0.8rem;
+}
+.list-ricon {
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin: -1rem 0;
+  right: 0.3rem;
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0 0.5rem;
+  /* margin: 0.2rem; */
+  /* padding: 0.2rem; */
+  /* margin: 0.05rem 0; */
+  background-color: #333;
+  color: #f3d19e;
+  font-size: 0.5rem;
+  border-radius: 1rem;
+}
+.list-ricon .van-icon {
+  padding: 0 0.3rem;
+}
+.list-sub {
+  height: 2.5rem;
+}
+</style>

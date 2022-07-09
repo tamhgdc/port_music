@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3506096 */
+  src: url('iconfont.woff2?t=1657251135463') format('woff2'),
+       url('iconfont.woff?t=1657251135463') format('woff'),
+       url('iconfont.ttf?t=1657251135463') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Youtube:before {
+  content: "\e880";
+}
+
+.icon-Androidgengduo_o:before {
+  content: "\eb76";
+}
+
+.icon-switch:before {
+  content: "\e72e";
+}
+
+.icon-icon-test:before {
+  content: "\e63e";
+}
+
+.icon-icon-test1:before {
+  content: "\e63f";
+}
+
+.icon-icon-test2:before {
+  content: "\e640";
+}
+
+.icon-comment:before {
+  content: "\e668";
+}
+
+.icon-complete:before {
+  content: "\e669";
+}
+
+.icon-direction-down:before {
+  content: "\e66b";
+}
+
+.icon-direction-right:before {
+  content: "\e66c";
+}
+
+.icon-direction-up:before {
+  content: "\e66d";
+}
+
+.icon-discount:before {
+  content: "\e66e";
+}
+
+.icon-direction-left:before {
+  content: "\e66f";
+}
+
+.icon-download:before {
+  content: "\e670";
+}
+
