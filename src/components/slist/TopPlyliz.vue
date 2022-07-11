@@ -15,13 +15,14 @@
 </script>
 <style scoped>
 .nav-top {
+  /* position: fixed; */
   display: flex;
   justify-content: space-between;
   padding-top: 00.5rem;
   font-size: 1.125rem;
   height: 1.6rem;
   line-height: 1.6rem;
-  background-color: rgba(0, 0, 0, 0.05);
+  /* background-color: rgba(0, 0, 0, 0.05); */
 }
 a {
   color: rgb(237, 237, 237);

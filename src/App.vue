@@ -1,7 +1,7 @@
 <template>
-  <router-view></router-view>
-  <ItemPlay></ItemPlay>
+  <router-view />
   <!-- <ItemPlay></ItemPlay> -->
+  <ItemPlay />
 </template>
 <script setup>
 </script>

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3506096 */
-  src: url('iconfont.woff2?t=1657251135463') format('woff2'),
-       url('iconfont.woff?t=1657251135463') format('woff'),
-       url('iconfont.ttf?t=1657251135463') format('truetype');
+  src: url('iconfont.woff2?t=1657364650809') format('woff2'),
+       url('iconfont.woff?t=1657364650809') format('woff'),
+       url('iconfont.ttf?t=1657364650809') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-musiclist:before {
+  content: "\e69c";
+}
+
+.icon-favoriteslist:before {
+  content: "\e69b";
+}
+
+.icon-mirrorlightctrl:before {
+  content: "\e6e0";
 }
 
 .icon-Youtube:before {

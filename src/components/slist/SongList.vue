@@ -1,29 +1,41 @@
 <template>
+  <!-- 歌单列表每首歌组件 -->
   <div class="one-list">
-    <div class="list-index">{{ props.index }}</div>
-    <div class="sing-list">
-      <div class="list-name">{{ props.oneSong.name }}</div>
-      <div class="list-singer">
-        <span v-for="(item, i) in props.oneSong.ar" :key="item"
-          ><span v-if="i > 0">/</span>{{ item.name }}</span
-        >
+    <div class="list-left">
+      <div class="list-index">{{ index + 1 }}</div>
+      <div class="sing-list">
+        <div class="list-name">{{ oneSong.name }}</div>
+        <div class="list-singer">
+          <span v-for="(item, i) in oneSong.ar" :key="item"
+            ><span v-if="i > 0">/</span>{{ item.name }}</span
+          >
+        </div>
       </div>
     </div>
+    <!-- 右边的mv以及其他选项 -->
     <div class="icon-list">
-      <span v-if="props.oneSong.mv !== 0" class="iconfont icon-Youtube"></span
+      <span v-if="oneSong.mv !== 0" class="iconfont icon-Youtube"></span
       ><span class="iconfont icon-switch"></span>
     </div>
   </div>
+  <!-- <div>{{ oneSong }}</div> -->
 </template>
 
-<script setup>
-const props = defineProps({
-  oneSong: Object,
-  index: Number
-})
-// console.log(props.index)
-</script>
 
+<script>
+export default {
+  setup() {},
+  props: {
+    // 作为子组件接受了父组件传入的歌
+    oneSong: Object,
+    //   // 每首歌在当前歌曲中的顺序
+    index: Number
+  }
+  // methods: {
+  //   changePlay() {}
+  // }
+}
+</script>
 <style scoped>
 .one-list {
   position: relative;
@@ -33,6 +45,11 @@ const props = defineProps({
   background-color: white;
 }
 
+.list-left {
+  position: absolute;
+  height: 100%;
+  width: 70%;
+}
 .list-index {
   position: absolute;
   width: 2rem;

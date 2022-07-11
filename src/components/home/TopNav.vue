@@ -15,6 +15,7 @@ export default {}
 </script>
 <style scoped>
 .nav-top {
+  /* position: fixed; */
   display: flex;
   justify-content: space-between;
   padding-top: 00.5rem;

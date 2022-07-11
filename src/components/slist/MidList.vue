@@ -1,7 +1,9 @@
 <template>
   <div class="top-back">
     <!-- 利用图片再使用定位作为背景，通过filter进行高斯模糊 -->
-    <img class="top-img" :src="plyLst.coverImgUrl" />
+    <div class="top-img">
+      <img :src="plyLst.coverImgUrl" />
+    </div>
     <!-- 组件中间部分的布局，包含了中间图片以及歌单名字 -->
     <div class="mid">
       <div class="mid-leftb">
@@ -44,13 +46,14 @@
           }})</span
         >
       </div>
-      <!-- 通过v-for对每首歌进行循环 -->
+      <!-- 通过v-for对每首歌跟歌单进行循环 -->
       <div class="list-bottom">
         <SongList
           v-for="(song, index) in plyLst.songs"
           :key="song"
           :oneSong="song"
           :index="index"
+          @click="getClickIndex(index)"
         ></SongList>
         <!-- <div v-for="song in plyLst.songs" :key="song">{{ item }}</div> -->
       </div>
@@ -63,6 +66,7 @@
 import { onMounted, reactive } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import axios from '@/utils/axios'
+import store from '@/store'
 // import SongList from '@/components/slist/SongList.vue'
 
 const route = useRoute()
@@ -81,12 +85,12 @@ const plyLst = reactive({
 const getList = async function () {
   // console.log('/playlist/detail?id=' + route.params.id)
   const res = await axios.get('/playlist/detail?id=' + listId)
-  plyLst.listName = res.playlist.name
-  plyLst.commentCount = res.playlist.commentCount
-  plyLst.shareCount = res.playlist.shareCount
-  plyLst.playCount = res.playlist.playCount
-  plyLst.coverImgUrl = res.playlist.coverImgUrl
-  plyLst.subscribedCount = res.playlist.subscribedCount
+  plyLst.listName = res.playlist.name //歌单名
+  plyLst.commentCount = res.playlist.commentCount //评论数
+  plyLst.shareCount = res.playlist.shareCount //分享量
+  plyLst.playCount = res.playlist.playCount //播放量
+  plyLst.coverImgUrl = res.playlist.coverImgUrl //歌单图片
+  plyLst.subscribedCount = res.playlist.subscribedCount //收藏数
   // console.log(res)
 }
 // 通过歌单id获取歌单中的全部歌曲
@@ -100,20 +104,33 @@ onMounted(() => {
   getList()
   getSong()
 })
+// 通过子组件emit获得需要播放的歌曲在歌单的位置index
+// 在点击歌单中歌曲时触发
+const getClickIndex = (value) => {
+  // console.log(value)
+  store.commit('changeplayList', plyLst.songs)
+  store.commit('changeplayIndex', value)
+}
 </script>
 <style scoped>
 .top-back {
   position: relative;
   height: 1.875rem;
   /* background-image: url(); */
+  /* overflow: hidden; */
 }
 .top-img {
   position: absolute;
-  top: -3rem;
+  top: -5rem;
+
   width: 100%;
   z-index: -99;
-  filter: blur(1.5rem);
   /* height: 20px; */
+  overflow: hidden;
+}
+.top-img img {
+  transform: scale(1.8);
+  filter: blur(1.5rem) brightness(50%);
 }
 .mid {
   margin-top: 1.875rem;
