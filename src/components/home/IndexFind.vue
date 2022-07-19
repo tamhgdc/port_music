@@ -1,8 +1,13 @@
+// 主页中间部分（发现）组件
 <template>
   <!-- 轮播图 -->
   <div class="banner-top">
     <van-swipe :autoplay="3000" lazy-render>
-      <van-swipe-item v-for="banner in states.banners" :key="banner">
+      <van-swipe-item
+        v-for="banner in states.banners"
+        :key="banner"
+        @click="clickBanner(banner)"
+      >
         <img :src="banner.pic" style="height: 8rem; width: 100%" />
       </van-swipe-item>
     </van-swipe>
@@ -74,6 +79,7 @@
 <script setup>
 import { onBeforeMount, reactive } from '@vue/runtime-core'
 import axios from '@/utils/axios'
+import store from '@/store'
 // states对象响应式数据
 const states = reactive({
   banners: [], // 轮播图数组
@@ -92,7 +98,16 @@ async function getPersonliz() {
   // console.log(res)
 }
 
+function clickBanner(ban) {
+  // console.log(store.state.playList)
+  const tempArr = store.state.playList.slice(0)
+  tempArr.splice(store.state.playIndex, 0, ban.song)
+  store.commit('changeplayList', tempArr)
+  store.commit('changeshowPlayer')
+}
+
 // 在组件挂载之前进行数据的请求
+// 请求内容包括，轮播图、推荐歌单的基本信息
 onBeforeMount(() => {
   getBanner()
   getPersonliz()

@@ -5,7 +5,7 @@ import axios from 'axios'
 axios.defaults.baseURL = 'https://coder4music-api.vercel.app'
 // 携带 cookie，对目前的项目没有什么作用，因为我们是 token 鉴权
 axios.defaults.withCredentials = true
-axios.defaults.timeout = 10000
+// axios.defaults.timeout = 10000
 // 请求头，headers 信息
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
 // 默认 post 请求，使用 application/json 形式

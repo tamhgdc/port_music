@@ -1,3 +1,4 @@
+// 歌单详细页面
 <template>
   <div class="top-back">
     <!-- 利用图片再使用定位作为背景，通过filter进行高斯模糊 -->
@@ -63,7 +64,7 @@
 </template>
 <script setup>
 // 由于vue3是composition api开发，所以使用路由$route不能像vue2那样this了
-import { onMounted, reactive } from '@vue/runtime-core'
+import { onBeforeMount, reactive } from '@vue/runtime-core'
 import { useRoute } from 'vue-router'
 import axios from '@/utils/axios'
 import store from '@/store'
@@ -100,7 +101,8 @@ const getSong = async function () {
   plyLst.songs = res.songs
   // console.log(plyLst.songs, res.songs)
 }
-onMounted(() => {
+// 组件挂载之前进行数据请求，数据包括，详细歌单的数据信息、歌单中的全部音乐
+onBeforeMount(() => {
   getList()
   getSong()
 })
@@ -115,7 +117,8 @@ const getClickIndex = (value) => {
 <style scoped>
 .top-back {
   position: relative;
-  height: 1.875rem;
+  /* z-index: -1; */
+  /* height: 1.875rem; */
   /* background-image: url(); */
   /* overflow: hidden; */
 }
@@ -173,11 +176,12 @@ const getClickIndex = (value) => {
 .song-list {
   margin-top: 1.2rem;
   border-radius: 1rem 1rem 0 0;
-  background-color: rgb(255, 255, 255, 0.3);
+  background-color: rgb(255, 255, 255);
   /* background-attachment: fixed; */
 }
 .list-top {
-  position: relative;
+  position: sticky;
+  top: 2.5rem;
   height: 2.5rem;
   line-height: 2.5rem;
   /* background-color: pink; */

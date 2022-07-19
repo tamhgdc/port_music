@@ -1,10 +1,16 @@
+// 详细歌单的组件
 <template>
-  <TopPlyliz></TopPlyliz>
+  <TopPlyliz class="stckyP"></TopPlyliz>
   <MidList></MidList>
 </template>
 <script setup>
-import MidList from '@/components/slist/MidList.vue'
 </script>
 
 <style scoped>
+</style>
+<style scoped>
+.stckyP {
+  position: sticky;
+  top: 0;
+}
 </style>

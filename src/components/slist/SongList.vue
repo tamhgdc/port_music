@@ -1,3 +1,4 @@
+// 歌单中为每首歌展示的组件
 <template>
   <!-- 歌单列表每首歌组件 -->
   <div class="one-list">

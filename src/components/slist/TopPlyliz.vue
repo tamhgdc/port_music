@@ -1,3 +1,4 @@
+// 歌单详细页面的头部组件
 <template>
   <div class="nav-top">
     <router-link to="/"
@@ -5,7 +6,7 @@
       ><span>歌单</span></router-link
     >
 
-    <router-link to="/123"
+    <router-link to="/search"
       ><span><van-icon name="search" size="1.5rem" /></span
     ></router-link>
   </div>
@@ -15,10 +16,9 @@
 </script>
 <style scoped>
 .nav-top {
-  /* position: fixed; */
   display: flex;
   justify-content: space-between;
-  padding-top: 00.5rem;
+  padding: 00.5rem 1rem 0.5rem 1rem;
   font-size: 1.125rem;
   height: 1.6rem;
   line-height: 1.6rem;

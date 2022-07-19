@@ -1,3 +1,4 @@
+// 主页“发现”的组件
 <template>
   <top-nav></top-nav>
   <index-find></index-find>
