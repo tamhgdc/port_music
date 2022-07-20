@@ -1,10 +1,9 @@
+// 歌手主页
 <template>
-  <top-nav></top-nav>
-  <user-item></user-item>
+  <singer-top></singer-top>
 </template>
 <script>
 export default {}
 </script>
-
 <style scoped>
 </style>

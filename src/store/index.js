@@ -1,3 +1,4 @@
+import { localSet } from '@/utils/token'
 import axios from 'axios'
 import { createStore } from 'vuex'
 
@@ -36,7 +37,12 @@ export default createStore({
     // 当前音乐最大播放时间
     maxplayTime: 0,
     // 用来判断是否循环播放 0--顺序播放  1--随机播放  2--单曲循环
-    playMode: 0
+    playMode: 0,
+    // 用来判断是否登录
+    hasToken: false,
+    // 登录用户的详细
+    userProfile: {}
+
   },
   getters: {
   },
@@ -84,7 +90,12 @@ export default createStore({
         state.playIndex = state.playIndex - 1
       }
       // delete state.playList[index]
-
+    },
+    changehasToken(state, val) {
+      state.hasToken = val
+    },
+    changeuserProfile(state, val) {
+      state.userProfile = val
     }
   },
   actions: {
@@ -110,6 +121,24 @@ export default createStore({
       }
       commit('changeplayLyric', arr)
     },
+
+    async getloginToken({ commit }, obj) {
+      const res = await axios.get(
+        `/login/cellphone?phone=${obj.username.value}&password=${obj.password.value}`
+      )
+      console.log(res);
+      commit('changeuserProfile', res.profile)
+      // localSet(res.account.id, res.profile)
+      localSet('token', res.token)
+      commit('changehasToken', true)
+    },
+
+    async getAccountByToken({ commit }) {
+      const res = await axios.get('/user/account')
+      commit('changeuserProfile', res.profile)
+      commit('changehasToken', true)
+      console.log(res);
+    }
 
   },
   modules: {

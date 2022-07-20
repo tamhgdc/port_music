@@ -30,7 +30,7 @@
     <div class="song-list">
       <!-- 歌单中的头部，包含播放全部以及收藏等 -->
       <div class="list-top">
-        <div class="list-licon">
+        <div class="list-licon" @click="getClickIndex(0)">
           <div class="list-licon-icon"><van-icon name="play-circle-o" /></div>
           <div class="list-licon-play">
             <span class="play"
@@ -96,7 +96,9 @@ const getList = async function () {
 }
 // 通过歌单id获取歌单中的全部歌曲
 const getSong = async function () {
-  const res = await axios.get('/playlist/track/all?id=' + listId)
+  const res = await axios.get(
+    '/playlist/track/all?id=' + listId + '&limit=20&offset=0'
+  )
   // console.log(res)
   plyLst.songs = res.songs
   // console.log(plyLst.songs, res.songs)

@@ -14,7 +14,7 @@
       ></span>
       <span class="detailedMusic"
         ><span class="songName">{{ song.name }}</span>
-        <span class="singerName">
+        <span class="singerName" @click="clickSinger">
           <span
             ><span v-for="(singer, i) in song.ar" :key="singer"
               ><span v-if="i > 0">/</span>{{ singer.name }}</span
@@ -110,6 +110,7 @@
       </div>
     </div>
   </div>
+  <!-- 播放列表展示 -->
   <van-popup
     class="my-van-popup"
     v-model:show="states.showPlayList"
@@ -148,6 +149,12 @@
       </div>
     </div>
   </van-popup>
+
+  <van-overlay :show="states.changeSinger" @click="states.changeSinger = false">
+    <div class="singer_wrp">
+      <div class="singer_block" />
+    </div>
+  </van-overlay>
 </template>
 <script>
 import { reactive } from '@vue/reactivity'
@@ -159,7 +166,8 @@ export default {
     const states = reactive({
       word_id: 0, // 当前播放句歌词在整个歌词文件的索引
       word_page: false, // 用来判断是否显示歌词页面
-      showPlayList: false // 用来判断是否展示播放列表
+      showPlayList: false, // 用来判断是否展示播放列表
+      changeSinger: false
     })
     // 用来改变播放列表是否展示的状态
     const showPopup = () => {
@@ -237,6 +245,18 @@ export default {
         return
       }
       this.deleteOneMusic(index)
+    },
+    clickSinger() {
+      console.log('点击歌手')
+      if (this.song.ar.length > 1) {
+        console.log('多个歌手')
+        this.states.changeSinger = true
+      } else {
+        this.$router.push(`/singer/${this.song.ar[0].id}`)
+        this.changeshowPlayer()
+      }
+
+      // this.$router.push(`/singer/${}`)
     }
   },
   mounted() {
@@ -547,5 +567,17 @@ export default {
   100% {
     scrolltop: offsetTop-200;
   }
+}
+.singer_wrp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.singer_block {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
 }
 </style>

@@ -1,17 +1,14 @@
-// 歌单详细页面的头部组件
+// 歌手主页上部分
 <template>
   <div class="nav-top">
     <div>
       <span
         class="iconfont icon-direction-left"
         @click="this.$router.back(-1)"
-      ></span
-      ><span>歌单</span>
+      ></span>
     </div>
 
-    <router-link to="/search"
-      ><span><van-icon name="search" size="1.5rem" /></span
-    ></router-link>
+    <span class="iconfont icon-icon-test1"></span>
   </div>
 </template>
 
@@ -25,14 +22,14 @@
   font-size: 1.125rem;
   height: 1.6rem;
   line-height: 1.6rem;
-  color: white;
-  /* background-color: rgba(0, 0, 0, 0.05); */
+  color: #f3d19e;
+  background-color: #333;
 }
 a {
   color: rgb(237, 237, 237);
 }
 .iconfont {
-  color: white;
+  color: #f3d19e;
   font-size: 1.5rem;
   margin-right: 1.2rem;
 }

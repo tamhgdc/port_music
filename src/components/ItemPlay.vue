@@ -210,6 +210,7 @@ export default {
       // } else {
       //   this.$refs.audio.pause()
       // }
+      // console.log('index发生改变')
       this.$refs.audio.autoplay = true
       this.changeStatus(true)
       // 当歌曲的index发生改变，此时也进行歌词的获取

@@ -16,26 +16,35 @@
   <div class="box-mid">
     <div class="box-mid-mid">
       <div>
-        <van-icon name="bookmark-o" size="2em" color="#f3d19e" />
+        <router-link to="/recmdmusic">
+          <van-icon name="bookmark-o" size="2em" color="#f3d19e" />
+        </router-link>
       </div>
       <span>每日推荐</span>
     </div>
     <div class="box-mid-mid">
-      <div>
-        <van-icon name="service-o" size="2em" color="#f3d19e" />
-      </div>
+      <router-link to="/" @click="NoUse"
+        ><div>
+          <van-icon name="service-o" size="2em" color="#f3d19e" /></div
+      ></router-link>
+
       <span>私人FM</span>
     </div>
     <div class="box-mid-mid">
-      <div>
-        <van-icon name="music-o" size="2em" color="#f3d19e" />
-      </div>
+      <router-link to="/groundlist">
+        <div>
+          <van-icon name="music-o" size="2em" color="#f3d19e" />
+        </div>
+      </router-link>
+
       <span>歌单</span>
     </div>
     <div class="box-mid-mid">
-      <div>
-        <van-icon name="bar-chart-o" size="2em" color="#f3d19e" />
-      </div>
+      <router-link to="/toplist">
+        <div>
+          <van-icon name="bar-chart-o" size="2em" color="#f3d19e" />
+        </div>
+      </router-link>
       <span>排行榜</span>
     </div>
   </div>
@@ -80,6 +89,8 @@
 import { onBeforeMount, reactive } from '@vue/runtime-core'
 import axios from '@/utils/axios'
 import store from '@/store'
+import { Toast } from 'vant'
+
 // states对象响应式数据
 const states = reactive({
   banners: [], // 轮播图数组
@@ -103,9 +114,18 @@ function clickBanner(ban) {
   const tempArr = store.state.playList.slice(0)
   tempArr.splice(store.state.playIndex, 0, ban.song)
   store.commit('changeplayList', tempArr)
-  store.commit('changeshowPlayer')
+  // store.commit('changeshowPlayer')
 }
 
+function NoUse() {
+  Toast({
+    message:
+      '<div style="height: 4rem;width: 15rem;display: flex;font-size:0.8rem;color: white;background-color: rgba(80,80,80);flex-direction: column;align-items: center;justify-content:space-around"><span class="iconfont icon-gantanhao" style="font-size:1rem"></span><span>该功能出现了点问题，正在紧急修复~~</span></div>',
+    iconSize: '10rem',
+    type: 'html',
+    duration: 2000
+  })
+}
 // 在组件挂载之前进行数据的请求
 // 请求内容包括，轮播图、推荐歌单的基本信息
 onBeforeMount(() => {

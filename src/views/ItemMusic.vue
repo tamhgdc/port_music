@@ -1,6 +1,6 @@
 // 详细歌单的组件
 <template>
-  <TopPlyliz class="stckyP"></TopPlyliz>
+  <TopPlyliz></TopPlyliz>
   <MidList></MidList>
 </template>
 <script setup>
@@ -9,8 +9,4 @@
 <style scoped>
 </style>
 <style scoped>
-.stckyP {
-  position: sticky;
-  top: 0;
-}
 </style>

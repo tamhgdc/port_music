@@ -25,7 +25,8 @@ axios.interceptors.response.use(res => {
     //     // }
     //     return Promise.reject(res.data)
     // }
-
+    // console.log(res);
     return res.data
+    // return res
 })
 export default axios
