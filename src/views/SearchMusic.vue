@@ -1,3 +1,5 @@
+// 搜索界面以及历史记录组件
+
 <template>
   <div class="top">
     <div class="top-left">

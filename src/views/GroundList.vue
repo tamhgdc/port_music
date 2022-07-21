@@ -1,6 +1,6 @@
 // 歌单广场组件
 <template>
-  <ground-top></ground-top>
+  <ground-top class="sticky_top"></ground-top>
   <ground-mid></ground-mid>
 </template>
 
@@ -11,4 +11,9 @@ export default {
 }
 </script>
 <style scoped>
+.sticky_top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 </style>

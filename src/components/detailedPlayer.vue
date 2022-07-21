@@ -150,9 +150,18 @@
     </div>
   </van-popup>
 
+  <!-- 当歌曲包含多个歌手时，弹出遮罩层供用户选择要查看的歌手 -->
   <van-overlay :show="states.changeSinger" @click="states.changeSinger = false">
     <div class="singer_wrp">
-      <div class="singer_block" />
+      <div class="singer_block">
+        <div
+          v-for="singer in song.ar"
+          :key="singer"
+          @click="clickMulti(singer)"
+        >
+          {{ singer.name }}
+        </div>
+      </div>
     </div>
   </van-overlay>
 </template>
@@ -255,8 +264,11 @@ export default {
         this.$router.push(`/singer/${this.song.ar[0].id}`)
         this.changeshowPlayer()
       }
-
       // this.$router.push(`/singer/${}`)
+    },
+    clickMulti(singer) {
+      this.$router.push(`/singer/${singer.id}`)
+      this.changeshowPlayer()
     }
   },
   mounted() {
@@ -576,8 +588,15 @@ export default {
 }
 
 .singer_block {
-  width: 120px;
-  height: 120px;
-  background-color: #fff;
+  width: 7.5rem;
+  height: 7.5rem;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+}
+.singer_block div {
+  margin-top: 1rem;
+  color: #333;
 }
 </style>

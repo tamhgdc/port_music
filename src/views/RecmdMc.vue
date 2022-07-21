@@ -1,12 +1,15 @@
+// 每日推荐组件
 <template>
-  <DailyTop></DailyTop>
-  <SongList
-    v-for="(song, index) in states.recmdList"
-    :key="song"
-    :oneSong="song"
-    :index="index"
-    @click="getClickIndex(index)"
-  ></SongList>
+  <DailyTop class="sticky_top"></DailyTop>
+  <div>
+    <SongList
+      v-for="(song, index) in states.recmdList"
+      :key="song"
+      :oneSong="song"
+      :index="index"
+      @click="getClickIndex(index)"
+    ></SongList>
+  </div>
   <div class="list-sub"></div>
 </template>
 <script>
@@ -42,6 +45,11 @@ export default {
 }
 </script>
 <style scoped>
+.sticky_top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
 .list-sub {
   height: 2.5rem;
 }

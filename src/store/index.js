@@ -81,9 +81,11 @@ export default createStore({
       // console.log("changecurplayTime执行了");
       state.curplayTime = val
     },
+    // 更新歌曲最大事件的方法，audio更新-->vuex更新
     changemaxplayTime(state, val) {
       state.maxplayTime = val
     },
+    // 删除歌单中某一首歌的方法
     deleteOneMusic(state, index) {
       state.playList.splice(index, 1)
       if (state.playIndex > index) {
@@ -91,9 +93,11 @@ export default createStore({
       }
       // delete state.playList[index]
     },
+    // 这个用来表示用户是否登录，但是用处不多
     changehasToken(state, val) {
       state.hasToken = val
     },
+    // 用户的信息保存更新方法
     changeuserProfile(state, val) {
       state.userProfile = val
     }
@@ -122,6 +126,7 @@ export default createStore({
       commit('changeplayLyric', arr)
     },
 
+    // 这是第一次登录，登陆后将token保存
     async getloginToken({ commit }, obj) {
       const res = await axios.get(
         `/login/cellphone?phone=${obj.username.value}&password=${obj.password.value}`
@@ -133,6 +138,7 @@ export default createStore({
       commit('changehasToken', true)
     },
 
+    // 用于获取用户详细信息，用于当token存在时但vuex里面没有时调用
     async getAccountByToken({ commit }) {
       const res = await axios.get('/user/account')
       commit('changeuserProfile', res.profile)

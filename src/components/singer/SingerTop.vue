@@ -23,7 +23,7 @@
   height: 1.6rem;
   line-height: 1.6rem;
   color: #f3d19e;
-  background-color: #333;
+  background-color: transparent;
 }
 a {
   color: rgb(237, 237, 237);
@@ -31,6 +31,5 @@ a {
 .iconfont {
   color: #f3d19e;
   font-size: 1.5rem;
-  margin-right: 1.2rem;
 }
 </style>

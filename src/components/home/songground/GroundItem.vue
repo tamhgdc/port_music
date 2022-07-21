@@ -16,7 +16,7 @@
               }}</span
             > -->
             <img :src="item.coverImgUrl" />
-            <span>{{ item.name }}</span>
+            <div>{{ item.name }}</div>
           </div></router-link
         >
       </van-cell>
@@ -71,11 +71,14 @@ async function getHighList(limit, cat) {
   margin-top: 0.5rem;
   padding: 0;
   width: 6rem;
-  height: 10rem;
+  height: 8rem;
 }
 .recommend-wipeitem {
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
+  color: #333;
+  font-size: 0.2rem;
+  line-height: 1rem;
 }
 .recommend-wipeitem img {
   width: 100%;
@@ -83,10 +86,14 @@ async function getHighList(limit, cat) {
   border: 0 solid transparent;
   border-radius: 0.3rem;
 }
-.recommend-wipeitem {
-  color: #333;
-  font-size: 0.2rem;
-  position: relative;
+.recommend-wipeitem div {
+  height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* white-space: nowrap; */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .play-icon {

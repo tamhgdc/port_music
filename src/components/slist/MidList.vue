@@ -1,64 +1,70 @@
 // 歌单详细页面
 <template>
-  <div class="top-back">
-    <!-- 利用图片再使用定位作为背景，通过filter进行高斯模糊 -->
-    <div class="top-img">
-      <img :src="plyLst.coverImgUrl" />
-    </div>
-    <!-- 组件中间部分的布局，包含了中间图片以及歌单名字 -->
-    <div class="mid">
-      <div class="mid-leftb">
+  <div>
+    <div class="top-back">
+      <!-- 利用图片再使用定位作为背景，通过filter进行高斯模糊 -->
+      <div class="top-img">
         <img :src="plyLst.coverImgUrl" />
       </div>
-      <div class="mid-rightb">{{ plyLst.listName }}</div>
-    </div>
-    <!-- 组件中间下部分的按钮：评论数、分享数以及下载多选等 -->
-    <div class="bottom">
-      <div>
-        <span class="iconfont icon-comment"></span
-        ><span>{{ plyLst.commentCount }}</span>
+      <!-- 组件中间部分的布局，包含了中间图片以及歌单名字 -->
+      <div class="mid">
+        <div class="mid-leftb">
+          <img :src="plyLst.coverImgUrl" />
+        </div>
+        <div class="mid-rightb">{{ plyLst.listName }}</div>
       </div>
-      <div>
-        <span class="iconfont icon-icon-test1"></span
-        ><span>{{ plyLst.shareCount }}</span>
+      <!-- 组件中间下部分的按钮：评论数、分享数以及下载多选等 -->
+      <div class="bottom">
+        <div>
+          <span class="iconfont icon-comment"></span
+          ><span>{{ plyLst.commentCount }}</span>
+        </div>
+        <div>
+          <span class="iconfont icon-icon-test1"></span
+          ><span>{{ plyLst.shareCount }}</span>
+        </div>
+        <div>
+          <span class="iconfont icon-icon-test2"></span><span>下载</span>
+        </div>
+        <div><span class="iconfont icon-complete"></span><span>多选</span></div>
       </div>
-      <div><span class="iconfont icon-icon-test2"></span><span>下载</span></div>
-      <div><span class="iconfont icon-complete"></span><span>多选</span></div>
-    </div>
 
-    <!-- 具体的歌单部分 -->
-    <div class="song-list">
-      <!-- 歌单中的头部，包含播放全部以及收藏等 -->
-      <div class="list-top">
-        <div class="list-licon" @click="getClickIndex(0)">
-          <div class="list-licon-icon"><van-icon name="play-circle-o" /></div>
-          <div class="list-licon-play">
-            <span class="play"
-              >播放全部<span class="word"
-                >(共{{ plyLst.songs.length }}首)</span
-              ></span
-            >
+      <!-- 具体的歌单部分 -->
+      <div class="song-list">
+        <!-- 歌单中的头部，包含播放全部以及收藏等 -->
+        <div class="list-top">
+          <div class="list-licon" @click="getClickIndex(0)">
+            <div class="list-licon-icon"><van-icon name="play-circle-o" /></div>
+            <div class="list-licon-play">
+              <span class="play"
+                >播放全部<span class="word"
+                  >(共{{ plyLst.songs.length }}首)</span
+                ></span
+              >
+            </div>
+          </div>
+
+          <span class="list-ricon"
+            ><van-icon name="plus" />收藏({{
+              Math.floor(plyLst.subscribedCount / 10000) + '万'
+            }})</span
+          >
+        </div>
+        <!-- 通过v-for对每首歌跟歌单进行循环 -->
+        <div>
+          <div class="list-bottom">
+            <SongList
+              v-for="(song, index) in plyLst.songs"
+              :key="song"
+              :oneSong="song"
+              :index="index"
+              @click="getClickIndex(index)"
+            ></SongList>
+            <!-- <div v-for="song in plyLst.songs" :key="song">{{ item }}</div> -->
           </div>
         </div>
-
-        <span class="list-ricon"
-          ><van-icon name="plus" />收藏({{
-            Math.floor(plyLst.subscribedCount / 10000) + '万'
-          }})</span
-        >
+        <div class="list-sub"></div>
       </div>
-      <!-- 通过v-for对每首歌跟歌单进行循环 -->
-      <div class="list-bottom">
-        <SongList
-          v-for="(song, index) in plyLst.songs"
-          :key="song"
-          :oneSong="song"
-          :index="index"
-          @click="getClickIndex(index)"
-        ></SongList>
-        <!-- <div v-for="song in plyLst.songs" :key="song">{{ item }}</div> -->
-      </div>
-      <div class="list-sub"></div>
     </div>
   </div>
 </template>

@@ -30,6 +30,7 @@
       ></audio>
     </div>
 
+    <!-- 播放列表的弹出框 -->
     <van-popup
       class="my-van-popup"
       v-model:show="states.showPlayList"
@@ -71,6 +72,7 @@
     </van-popup>
   </div>
 
+  <!-- 播放界面详细页面的弹出框 -->
   <van-popup
     v-model:show="showPlayer"
     position="bottom"
@@ -169,9 +171,11 @@ export default {
 
       // this.changemaxplayTime(this.$refs.audio.duration)
     },
+    // 通过子组件修改input的当前的时间emit给父组件来修改audio属性的curtime
     updatecurTime4Father(val) {
       this.$refs.audio.currentTime = val
     },
+    // 删除播放列表中的某一首歌的方法，传入索引index
     delete_one(index) {
       // console.log(Toast)
       if (this.playList.length <= 1) {
@@ -186,6 +190,7 @@ export default {
       }
       this.deleteOneMusic(index)
     },
+    // 当audio一首歌播放结束时进行触发
     endMc() {
       if (this.playMode === 0) {
         if (this.playIndex === this.playList.length - 1) {
@@ -197,6 +202,7 @@ export default {
         this.$refs.audio.loop = 'loop'
       }
     },
+    // 当audio的duration属性发生变化时触发，来对vuex数据继续修改从而对界面数据进行更新
     maxdurationChange(e) {
       this.changemaxplayTime(e.target.duration)
       // console.log('duration改变', val)
