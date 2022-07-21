@@ -1,12 +1,13 @@
 <template>
-  <div class="big_box">
-    <van-skeleton title avatar :row="3" :loading="false">
-      <img class="bg_pic" :src="userProfile.backgroundUrl" alt="" />
-      <div class="account_info">
-        <img class="avatar_pic" :src="userProfile.avatarUrl" alt="" />
-        <span class="words">{{ userProfile.nickname }}</span>
-      </div>
-    </van-skeleton>
+  <div v-if="JSON.stringify(this.userProfile) === '{}'" class="load_icon">
+    <van-loading type="spinner" size="5rem" color="#333" />
+  </div>
+  <div v-else class="big_box">
+    <img class="bg_pic" :src="userProfile.backgroundUrl" alt="" />
+    <div class="account_info">
+      <img class="avatar_pic" :src="userProfile.avatarUrl" alt="" />
+      <span class="words">{{ userProfile.nickname }}</span>
+    </div>
   </div>
 </template>
 <script>
@@ -25,7 +26,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['userProfile', 'userProfile'])
+    ...mapState(['userProfile'])
   },
   methods: {
     ...mapActions(['getAccountByToken'])
@@ -60,5 +61,11 @@ export default {
 }
 .words {
   color: white;
+}
+.load_icon {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

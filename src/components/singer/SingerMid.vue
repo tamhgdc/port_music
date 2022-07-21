@@ -1,49 +1,56 @@
 <template>
-  <div class="singer_bg">
-    <img :src="states.singerPro.cover" alt="" class="singer_cover" />
-    <div class="singer_name">
-      <p>{{ states.singerPro.name }}</p>
-    </div>
+  <div v-if="states.songs.length < 1" class="load_icon">
+    <van-loading type="spinner" size="5rem" color="#333" />
   </div>
-  <div class="singer_item">
-    <van-tabs v-model:active="states.active" swipeable>
-      <van-tab title="主页" class="singer_desc">
-        <div>
-          <p>歌手描述</p>
-          <p>{{ states.singerPro.briefDesc }}</p>
-        </div></van-tab
-      >
-      <van-tab title="歌曲">
-        <SongList
-          v-for="(song, index) in states.songs"
-          :key="song"
-          :oneSong="song"
-          :index="index"
-        ></SongList
-      ></van-tab>
-      <van-tab title="专辑">
-        <van-list
-          v-model:loading="states.loading"
-          :finished="states.finished"
-          finished-text="没有更多了"
-          @load="onLoad"
+  <div v-else>
+    <div class="singer_bg">
+      <img :src="states.singerPro.cover" alt="" class="singer_cover" />
+      <div class="singer_name">
+        <p>{{ states.singerPro.name }}</p>
+      </div>
+    </div>
+    <div class="singer_item">
+      <van-tabs v-model:active="states.active" swipeable>
+        <van-tab title="主页" class="singer_desc">
+          <div>
+            <p>歌手描述</p>
+            <p>{{ states.singerPro.briefDesc }}</p>
+          </div></van-tab
         >
-          <div v-for="item in states.albums" :key="item" class="album_item">
-            <div class="albumpic_item">
-              <img class="album_pic" :src="item.blurPicUrl" alt="" /><img
-                class="album_botm"
-                src="@/assets/disc.png"
-                alt=""
-              />
+        <van-tab title="歌曲">
+          <SongList
+            v-for="(song, index) in states.songs"
+            :key="song"
+            :oneSong="song"
+            :index="index"
+          ></SongList
+        ></van-tab>
+        <van-tab title="专辑">
+          <van-list
+            v-model:loading="states.loading"
+            :finished="states.finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+          >
+            <div v-for="item in states.albums" :key="item" class="album_item">
+              <div class="albumpic_item">
+                <img class="album_pic" :src="item.blurPicUrl" alt="" /><img
+                  class="album_botm"
+                  src="@/assets/disc.png"
+                  alt=""
+                />
+              </div>
+              <div class="album_time">
+                <p class="first_p">{{ item.name }}</p>
+                <p class="second_p">
+                  {{ formatDate(item.publishTime) }} {{ item.size }}首
+                </p>
+              </div>
             </div>
-            <div>
-              <p>{{ item.name }}</p>
-              <p>{{ formatDate(item.publishTime) }} {{ item.size }}首</p>
-            </div>
-          </div>
-        </van-list>
-      </van-tab>
-    </van-tabs>
+          </van-list>
+        </van-tab>
+      </van-tabs>
+    </div>
   </div>
 </template>
 
@@ -156,5 +163,18 @@ onMounted(() => {
 }
 .singer_desc {
   padding: 0 1rem 0 1rem;
+}
+.album_time {
+  margin-left: 1rem;
+}
+.album_time .second_p {
+  font-size: 0.8rem;
+  color: rgb(150, 150, 150);
+}
+.load_icon {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

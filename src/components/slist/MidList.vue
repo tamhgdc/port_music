@@ -1,6 +1,9 @@
 // 歌单详细页面
 <template>
-  <div>
+  <div v-if="plyLst.songs.length < 1" class="load_icon">
+    <van-loading type="spinner" size="5rem" color="#333" />
+  </div>
+  <div v-else>
     <div class="top-back">
       <!-- 利用图片再使用定位作为背景，通过filter进行高斯模糊 -->
       <div class="top-img">
@@ -248,5 +251,11 @@ const getClickIndex = (value) => {
 }
 .list-sub {
   height: 2.5rem;
+}
+.load_icon {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

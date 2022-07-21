@@ -1,5 +1,8 @@
 <template>
-  <div class="biggest">
+  <div v-if="states.listName.length < 1" class="load_icon">
+    <van-loading type="spinner" size="5rem" color="#333" />
+  </div>
+  <div v-else class="biggest">
     <van-config-provider :theme-vars="themeVars">
       <van-tabs v-model:active="states.active" animated swipeable>
         <van-tab v-for="item in states.listName" :title="item.name" :key="item">
@@ -51,4 +54,10 @@ export default {
 </script>
 
 <style scoped>
+.load_icon {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>

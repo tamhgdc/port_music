@@ -1,23 +1,28 @@
 <template>
-  <div class="list_top">
-    <div>官方榜</div>
-    <div v-for="item in states.list1" :key="item">
-      <router-link :to="'/itemmusic/' + item.id" class="list_item">
-        <div class="pic_left"><img :src="item.coverImgUrl" alt="" /></div>
-        <div class="pic_right">
-          <p v-for="(song, index) in item.tracks" :key="song">
-            {{ index + 1 + '.' + song.first + ' - ' + song.second }}
-          </p>
-        </div>
-      </router-link>
-    </div>
+  <div v-if="states.list1.length < 4" class="load_icon">
+    <van-loading type="spinner" size="5rem" color="#333" />
   </div>
-  <div style="margin: 0 1rem">其他榜单</div>
-  <div class="list_main">
-    <div v-for="item in states.list2" :key="item" class="item_list">
-      <router-link :to="'/itemmusic/' + item.id">
-        <img :src="item.coverImgUrl" alt="" /><span>{{ item.name }}</span>
-      </router-link>
+  <div v-else>
+    <div class="list_top">
+      <div>官方榜</div>
+      <div v-for="item in states.list1" :key="item">
+        <router-link :to="'/itemmusic/' + item.id" class="list_item">
+          <div class="pic_left"><img :src="item.coverImgUrl" alt="" /></div>
+          <div class="pic_right">
+            <p v-for="(song, index) in item.tracks" :key="song">
+              {{ index + 1 + '.' + song.first + ' - ' + song.second }}
+            </p>
+          </div>
+        </router-link>
+      </div>
+    </div>
+    <div style="margin: 0 1rem">其他榜单</div>
+    <div class="list_main">
+      <div v-for="item in states.list2" :key="item" class="item_list">
+        <router-link :to="'/itemmusic/' + item.id">
+          <img :src="item.coverImgUrl" alt="" /><span>{{ item.name }}</span>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -101,5 +106,11 @@ onMounted(() => {
 .item_list span {
   color: rgb(122, 122, 122);
   font-size: 0.5rem;
+}
+.load_icon {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

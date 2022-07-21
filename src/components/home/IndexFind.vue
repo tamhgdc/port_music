@@ -1,7 +1,10 @@
 // 主页中间部分（发现）组件
 <template>
   <!-- 轮播图 -->
-  <div class="banner-top">
+  <div v-if="states.banners.length < 1" class="load_icon1">
+    <van-loading type="spinner" size="4rem" color="#333" />
+  </div>
+  <div v-else class="banner-top">
     <van-swipe :autoplay="3000" lazy-render>
       <van-swipe-item
         v-for="banner in states.banners"
@@ -56,7 +59,10 @@
   </div>
 
   <!-- 推荐歌单轮播部分 -->
-  <div class="person-list">
+  <div v-if="states.getPersonlizs.length < 1" class="load_icon2">
+    <van-loading type="spinner" size="4rem" color="#333" />
+  </div>
+  <div v-else class="person-list">
     <van-swipe
       class="recommend-swipe"
       :loop="false"
@@ -140,8 +146,8 @@ onBeforeMount(() => {
 }
 .my-swipe .van-swipe-item {
   color: #fff;
-  font-size: 20px;
-  line-height: 150px;
+  font-size: 1.25rem;
+  line-height: 9.375rem;
   text-align: center;
   background-color: #39a9ed;
 }
@@ -203,5 +209,17 @@ onBeforeMount(() => {
   top: 0;
   right: 0.625rem;
   position: absolute;
+}
+.load_icon1 {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.load_icon2 {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

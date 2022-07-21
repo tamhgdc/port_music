@@ -1,7 +1,10 @@
 // 每日推荐组件
 <template>
   <DailyTop class="sticky_top"></DailyTop>
-  <div>
+  <div v-if="states.recmdList.length < 1" class="load_icon">
+    <van-loading type="spinner" size="5rem" color="#333" />
+  </div>
+  <div v-else>
     <SongList
       v-for="(song, index) in states.recmdList"
       :key="song"
@@ -52,5 +55,11 @@ export default {
 }
 .list-sub {
   height: 2.5rem;
+}
+.load_icon {
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
