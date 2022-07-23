@@ -81,7 +81,7 @@ export default createStore({
       // console.log("changecurplayTime执行了");
       state.curplayTime = val
     },
-    // 更新歌曲最大事件的方法，audio更新-->vuex更新
+    // 更新歌曲最大时间的方法，audio更新-->vuex更新
     changemaxplayTime(state, val) {
       state.maxplayTime = val
     },
@@ -134,16 +134,17 @@ export default createStore({
       console.log(res);
       commit('changeuserProfile', res.profile)
       // localSet(res.account.id, res.profile)
-      localSet('token', res.token)
+      localSet('token', res.profile)
       commit('changehasToken', true)
     },
 
-    // 用于获取用户详细信息，用于当token存在时但vuex里面没有时调用
-    async getAccountByToken({ commit }) {
-      const res = await axios.get('/user/account')
-      commit('changeuserProfile', res.profile)
-      commit('changehasToken', true)
+    async getLogout({ commit }) {
+      const res = await axios.get('/logout')
       console.log(res);
+      commit('changeuserProfile', {})
+      // localSet(res.account.id, res.profile)
+      localSet('token', {})
+      commit('changehasToken', false)
     }
 
   },

@@ -23,6 +23,7 @@
             :key="song"
             :oneSong="song"
             :index="index"
+            @click="getClickIndex(index)"
           ></SongList
         ></van-tab>
         <van-tab title="专辑">
@@ -59,6 +60,7 @@ const { default: axios } = require('@/utils/axios')
 const { onMounted, reactive } = require('@vue/runtime-core')
 const { useRoute } = require('vue-router')
 const route = useRoute()
+import store from '@/store'
 import formatDate from '@/utils/date'
 
 // 通过route动态路由匹配获取传入的歌手id参数
@@ -102,7 +104,12 @@ const onLoad = () => {
     states.finished = true
   }
 }
-
+// 在点击歌单中歌曲时触发
+const getClickIndex = (value) => {
+  // console.log(value)
+  store.commit('changeplayList', states.songs)
+  store.commit('changeplayIndex', value)
+}
 onMounted(() => {
   getSingerDec()
   getSingerMc()

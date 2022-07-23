@@ -1,6 +1,9 @@
 <template>
   <div class="login_div">
     <van-form @submit="onSubmit">
+      <div class="main_icon">
+        <img src="../../../public/main_icon.png" alt="" />
+      </div>
       <van-cell-group inset>
         <van-field
           v-model.number="username"
@@ -19,7 +22,13 @@
         />
       </van-cell-group>
       <div style="margin: 16px">
-        <van-button round block type="primary" native-type="submit">
+        <van-button
+          round
+          block
+          type="primary"
+          native-type="submit"
+          color="#333"
+        >
           提交
         </van-button>
       </div>
@@ -57,7 +66,7 @@ export default {
   watch: {
     hasToken(newV) {
       if (newV === true) {
-        // location.reload()
+        location.reload()
       }
     }
   }
@@ -70,5 +79,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.main_icon {
+  width: 40%;
+  /* height: 10%; */
+  margin: 0 auto;
+  background-color: #333;
+  border-radius: 1rem;
+}
+.main_icon img {
+  width: 100%;
 }
 </style>

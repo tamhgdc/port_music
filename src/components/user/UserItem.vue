@@ -12,7 +12,7 @@
 </template>
 <script>
 import { ref } from '@vue/reactivity'
-import { mapActions, mapState } from 'vuex'
+import { mapState } from 'vuex'
 // import axios from '@/utils/axios'
 export default {
   setup() {
@@ -28,14 +28,7 @@ export default {
   computed: {
     ...mapState(['userProfile'])
   },
-  methods: {
-    ...mapActions(['getAccountByToken'])
-  },
-  beforeMount() {
-    if (JSON.stringify(this.userProfile) === '{}') {
-      this.getAccountByToken()
-    }
-  }
+  methods: {}
 }
 </script>
 <style scoped>

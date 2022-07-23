@@ -1,9 +1,12 @@
 // 每日推荐歌单详细页面的头部组件
 <template>
   <div class="nav-top">
-    <router-link to="/"
-      ><span class="iconfont icon-direction-left"></span
-      ><span>每日推荐</span></router-link
+    <span
+      ><span
+        class="iconfont icon-direction-left"
+        @click="this.$router.back(-1)"
+      ></span
+      ><span>每日推荐</span></span
     >
 
     <router-link to="/search"

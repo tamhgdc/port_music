@@ -1,70 +1,89 @@
 // 主页头部组件
 <template>
-  <!-- 轮播消息 -->
-  <van-notice-bar
-    left-icon="volume-o"
-    scrollable
-    text="由于网易云接口的原因，某些音乐的获取会出现问题导致无法正常播放，属正常现象，请另选择其他曲目进行播放"
-    mode="closeable"
-  />
   <!-- 主页头部按钮 -->
   <div class="nav-top">
-    <span><van-icon name="wap-nav" size="1.25rem" /></span>
+    <span @click="leftShow = true"
+      ><van-icon name="wap-nav" size="1.25rem"
+    /></span>
     <router-link to="/user"
       ><span :class="{ check_now: $route.name === 'User' }"
         >我的</span
       ></router-link
     >
-    <!-- <span @click="showPopup">我的</span> -->
     <router-link to="/index"
       ><span :class="{ check_now: $route.name === 'Index' }"
         >发现</span
       ></router-link
     >
-    <router-link to="/"><span>视频</span></router-link>
     <router-link to="/search"
       ><span><van-icon name="search" size="1.25rem" /></span
     ></router-link>
   </div>
 
   <van-popup
-    v-model:show="show"
+    v-model:show="loginShow"
     position="left"
     :style="{ height: '100%', width: '100%' }"
-    ><div @click="cancelPopup" class="login_cancel">取消</div>
+    ><div @click="loginShow = false" class="login_cancel">取消</div>
     <log-in></log-in>
   </van-popup>
+  <van-popup
+    v-model:show="leftShow"
+    position="left"
+    :style="{ height: '100%', width: '30%' }"
+    ><van-button v-if="hasToken" color="#333" @click="logoutFunc"
+      >退出登录</van-button
+    ><van-button v-else color="#333" @click="loginFunc"
+      >未登录</van-button
+    ></van-popup
+  >
 </template>
 
 <script>
 import { ref } from '@vue/reactivity'
 // import store from '@/store'
 import { onBeforeRouteLeave } from 'vue-router'
-import { localGet } from '@/utils/token'
+import store from '@/store'
+import { mapState } from 'vuex'
 export default {
   setup() {
-    const show = ref(false)
-    const showPopup = () => {
-      show.value = true
-    }
-    const cancelPopup = () => {
-      show.value = false
-    }
-    onBeforeRouteLeave((to, next) => {
+    const loginShow = ref(false) // 是否展示登录页面弹出框
+    const leftShow = ref(false) // 是否展示左侧弹出框
+
+    onBeforeRouteLeave((to, from, next) => {
       if (to.name === 'User') {
-        // console.log(localGet('token') != null)
-        if (localGet('token') == null) {
-          showPopup()
-          next(false)
+        if (!store.state.hasToken) {
+          loginShow.value = true
+        } else {
+          next()
         }
+      } else {
+        next()
       }
-      // next()
     })
-    return {
-      show,
-      showPopup,
-      cancelPopup
+
+    function logoutFunc() {
+      store.dispatch('getLogout')
+      leftShow.value = false
     }
+
+    function loginFunc() {
+      leftShow.value = false
+      loginShow.value = true
+    }
+
+    return {
+      loginShow,
+      leftShow,
+      logoutFunc,
+      loginFunc
+    }
+  },
+  computed: {
+    ...mapState(['hasToken'])
+  },
+  mounted() {
+    // console.log(this.hasToken)
   }
 }
 </script>
