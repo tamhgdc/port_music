@@ -10,9 +10,10 @@ const routes = [
     component: () => import('../views/IndexHome.vue'),
     beforeEnter: (to, from, next) => {
       // ...
-      let user = {}
+      let user = localGet('token')
+      console.log(user);
       if (!store.hasToken) {
-        if (Object.keys((user = localGet('token'))).length !== 0) {
+        if (Object.keys(user).length !== 0 && user !== null) {
           store.commit('changeuserProfile', user)
           store.commit('changehasToken', true)
         } else {
