@@ -13,7 +13,7 @@ const routes = [
       let user = localGet('token')
       console.log(user);
       if (!store.hasToken) {
-        if (Object.keys(user).length !== 0 && user !== null) {
+        if (user !== null && Object.keys(user).length !== 0) {
           store.commit('changeuserProfile', user)
           store.commit('changehasToken', true)
         } else {
